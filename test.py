@@ -1,11 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.chrome.options import Options
-from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.action_chains import ActionChains
 
-op = Options()
-op.add_argument("--mute-audio")
 f = open("data\data.txt", "r")
 data_list = f.read().split("\n")
 insta_login = data_list[0]
@@ -15,7 +11,9 @@ air_password = data_list[3]
 air_id = data_list[4]
 air_token = data_list[5]
 
-driver = webdriver.Chrome(executable_path=ChromeDriverManager().install(), options=op)
+driver = webdriver.Edge(
+    executable_path="C:/Users/safin/Projects/air-table-instagram-poster/msedgedriver.exe"
+)
 driver.set_window_size(1230, 927)
 driver.get("https://business.facebook.com/creatorstudio/")
 driver.find_element_by_xpath(
@@ -27,7 +25,7 @@ driver.find_element_by_xpath(
 
 while True:
     try:
-        driver.switch_to_window(driver.window_handles[1]) # я какао делать пошел
+        driver.switch_to_window(driver.window_handles[1])
         break
     except Exception:
         pass
@@ -95,14 +93,20 @@ while True:
     except Exception:
         pass
 
-while True:
-    try:
-        input = driver.find_element_by_css_selector('input[accept="video/*, image/*"]')
-        break
-    except:
-        pass
-
-img_list = ["\\image.jpeg", "\\Su24.jpg"]
+img_list = [
+    "C:\\Users\\safin\\Projects\\air-table-instagram-poster\\image.jpg",
+    "C:\\Users\\safin\\Projects\\air-table-instagram-poster\\Su24.jpg",
+    "C:\\Users\\safin\\Projects\\air-table-instagram-poster\\Su24.jpg",
+]
 
 for path in img_list:
+    driver.execute_script('document.querySelector("._82ht > div").click()')
+
+    while True:
+        try:
+            input = driver.find_element_by_css_selector('input[accept="video/*, image/*"]')
+            break
+        except:
+            pass
+
     input.send_keys(path)
