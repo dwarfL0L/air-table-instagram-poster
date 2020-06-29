@@ -1,3 +1,4 @@
+import os 
 from tkinter import *
 from functools import partial
 
@@ -5,8 +6,6 @@ from functools import partial
 tkWindow = Tk()
 tkWindow.geometry('300x200')
 
-icon = PhotoImage(file='data\i.png')
-tkWindow.iconphoto(False, icon)
 
 insta_login_label = Label(tkWindow, text="Логин от instagram").grid(row=0, column=0)
 insta_login = StringVar()

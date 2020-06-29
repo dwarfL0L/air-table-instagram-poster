@@ -125,14 +125,14 @@ def post(text, img_list, day, month, year, hour, minute):
     actions.send_keys(text)
     actions.perform()
 
-    driver.find_element_by_css_selector(
-        "#creator_studio_sliding_tray_root > div > div > div._85h_._3qn7._61-3._2fyi._3qng > div._3qn7._61-0._2fyi._3qnf > div + button"
+    driver.find_element_by_xpath(
+        "/html/body/div[6]/div/div/div/div[3]/div[2]/div/button"
     ).click()
 
     while True:
         try:
             driver.find_element_by_xpath(
-                "/html/body/div[8]/div/div/div/div/div[2]/div/div"
+                "/html/body/div[7]/div/div/div/div/div[2]/div/div/div"
             ).click()
             break
         except Exception:
@@ -142,17 +142,17 @@ def post(text, img_list, day, month, year, hour, minute):
         try:
             for i in range(9):
                 driver.find_element_by_xpath(
-                    "/html/body/div[8]/div/div/div/div/div[2]/div/div[2]/div/div[2]/div/span/div/span/label/input"
+                    "/html/body/div[7]/div/div/div/div/div[2]/div/div[2]/div/div[2]/div/span/div/span/label/input"
                 ).send_keys(Keys.BACKSPACE)
             break
         except Exception:
             pass
 
     driver.find_element_by_xpath(
-        "/html/body/div[8]/div/div/div/div/div[2]/div/div[2]/div/div[2]/div/span/div/span/label/input"
+        "/html/body/div[7]/div/div/div/div/div[2]/div/div[2]/div/div[2]/div/span/div/span/label/input"
     ).send_keys(f"{day}.{month}.{year}")
     driver.find_element_by_xpath(
-        "/html/body/div[8]/div/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div[1]/div[2]/div[1]/div/input"
+        "/html/body/div[7]/div/div/div/div/div[2]/div/div[2]/div/div[2]/div/div/div[1]/div[2]/div[1]/div/input"
     ).send_keys(f"00{hour}:00{minute}")
     driver.find_element_by_xpath(
         "/html/body/div[6]/div/div/div/div[3]/div[2]/button"
@@ -191,8 +191,9 @@ while True:
                 img_resp = requests.get(img_url)
                 image = open(os.getcwd() + "\\img\\" + filename, "wb")
                 image.write(img_resp.content)
-                image.close()
-
+                os.close(image)
+                del(image)
+                
             post(
                 text=text,
                 img_list=img_list,
@@ -204,6 +205,6 @@ while True:
             )
 
             for del_image in img_list:
-                os.remove(os.getcwd() + "\\img\\" + del_image)
+                    os.remove(os.getcwd() + "\\img\\" + del_image)
     else:
         print("не найдено новых записей")
